@@ -1,10 +1,11 @@
-
+const inputTypeValues = document.querySelector('.inputTypeValues'); // only 2 radio buttons, one of them is always 'checked'
 const separatorComma = document.querySelector('.separatorComma'); // only 2 radio buttons, one of them is always 'checked'
+const valueFirst = document.querySelector('.valueFirst') // only 2 radio buttons, one of them is always 'checked'
 const inputOptions = document.querySelector('.inputOptions');
 const btnSubmit = document.querySelector('.btnSubmit');
 const resultContent = document.querySelector('.resultContent');
 
-// to convert strings with _ or camelCase to proper labels
+// convert strings with _ or camelCase to proper labels
 function nameToLabel(str) {
 	if (typeof str !== "string") return str;
 	const name = str.replaceAll('_', ' ')
@@ -15,8 +16,8 @@ function nameToLabel(str) {
 	}).join(' ');
 };
 
-// to create array with {value, label} objects
-function parseOptions(input, separator) {
+// from a list of values create array with {value, label} objects
+function parseOptionsFromValues(input, separator) {
 	const separatedBy = separator.checked ? ',' : '\n'
 	const output = input.split(separatedBy)
 		.map(element => ({
@@ -26,12 +27,23 @@ function parseOptions(input, separator) {
 	return JSON.stringify(output, null, 2)
 };
 
+// from a list of value,name or name,value create array with {value, label} objects
+function parseOptionsFromValuesAndNames(input, order) { 
+	const valueOrder = order.checked ? 0 : 1;
+	const nameOrder = !order.checked ? 0 : 1;
+	const output = input.split('\n')
+		.map(element => ({
+			"value": element.split(',')[valueOrder],
+			"label": element.split(',')[nameOrder]
+		}));
+	return JSON.stringify(output, null, 2);
+};
+
 // calls the function and displays the results after 'submit' button is clicked
 btnSubmit.addEventListener('click', function (e) {
 	e.preventDefault();
 	if (!inputOptions.value) alert('Insert options');
-	if (inputOptions.value) {
-		resultContent.textContent = parseOptions(inputOptions.value, separatorComma);
-		console.log(resultContent.textContent);
-	}
+	if (inputTypeValues.checked) resultContent.textContent = parseOptionsFromValues(inputOptions.value, separatorComma);
+	if (!inputTypeValues.checked) resultContent.textContent = parseOptionsFromValuesAndNames(inputOptions.value, valueFirst);
+
 });

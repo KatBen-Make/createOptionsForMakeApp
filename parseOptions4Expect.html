@@ -11,18 +11,22 @@
 <body style="padding-left:50px" , "padding-top:15px">
     <h1> Parse Options for mappable parameters</h1>
     <form>
-        <div>Options separated by:
-            <input type="radio" class="separatorNewLine" checked /><label for="nl">New Line</label>
-            <input type="radio" class="separatorComma" /><label for="comma">Comma</label>
+        <div><input type="radio" class="inputTypeValues" name="inputType" checked /><label>List of values separated by</label>:
+            <input type="radio" class="separatorNewLine" name="separator" checked /><label>New Line</label>
+            <input type="radio" class="separatorComma" name="separator" /><label>Comma</label>
+        </div>
+        <div><input type="radio" class="inputTypeNames" name="inputType" />List of values and names:
+            <input type="radio" class="valueFirst" name="pairs"checked /><label>Value,Name</label>
+            <input type="radio" class="nameFirst" name="pairs"/><label>Name,Value</label>
         </div>
         <legend style="padding:10px">Enter list of options:</legend>
-        <textarea class="inputOptions" cols="100" rows="12"></textarea><br>
+        <textarea class="inputOptions" cols="70" rows="12"></textarea><br>
         <button class="btnSubmit">Submit</button>
         </div>
     </form>
     <h3>Result:</h3>
     <div>
-        <textarea class="resultContent" cols="100" rows="12"></textarea>
+        <textarea class="resultContent" cols="70" rows="12"></textarea>
     </div>
     
     <script src="script.js"></script>
