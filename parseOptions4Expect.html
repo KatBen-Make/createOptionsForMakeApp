@@ -5,21 +5,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Parse Options for mappable parameters</title>
+    <title>Parse Options or Parameters for mappable parameters</title>
 </head>
 
 <body style="padding-left:50px" , "padding-top:15px">
-    <h1> Parse Options for mappable parameters</h1>
+    <h1> Parse Options or Parameters for mappable parameters</h1>
     <form>
-        <div><input type="radio" class="inputTypeValues" name="inputType" checked /><label>List of values separated by</label>:
-            <input type="radio" class="separatorNewLine" name="separator" checked /><label>New Line</label>
-            <input type="radio" class="separatorComma" name="separator" /><label>Comma</label>
+        <div style = "padding-bottom:10px"><b>Select Output:</b>
+            <input type="radio" class="options" name="output" checked /><label>Options</label>
+            <input type="radio" class="parameters" name="output" /><label>Parameters</label>
         </div>
-        <div><input type="radio" class="inputTypeNames" name="inputType" />List of values and names:
-            <input type="radio" class="valueFirst" name="pairs"checked /><label>Value,Name</label>
-            <input type="radio" class="nameFirst" name="pairs"/><label>Name,Value</label>
+        <div  style = "padding-bottom:10px"><b>Select Input format:</b>
+            <div><input type="radio" class="inputTypeValues" name="inputType" checked /><label>List of values separated
+                    by</label>:
+                <input type="radio" class="separatorNewLine" name="separator" checked /><label>New Line</label>
+                <input type="radio" class="separatorComma" name="separator" /><label>Comma</label>
+            </div>
+            <div><input type="radio" class="inputTypeNames" name="inputType" />List of values and names:
+                <input type="radio" class="valueFirst" name="pairs" checked /><label>Value,Name</label>
+                <input type="radio" class="nameFirst" name="pairs" /><label>Name,Value</label>
+            </div>
         </div>
-        <legend style="padding:10px">Enter list of options:</legend>
+
+        <div  style = "padding-bottom:10px"><b>Enter list of values:</b></div>
         <textarea class="inputOptions" cols="70" rows="12"></textarea><br>
         <button class="btnSubmit">Submit</button>
         </div>
@@ -28,7 +36,8 @@
     <div>
         <textarea class="resultContent" cols="70" rows="12"></textarea>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
+
 </html>
