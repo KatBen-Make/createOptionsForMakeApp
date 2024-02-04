@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Parse Options or Parameters for mappable parameters</title>
+    <title>Parse list of strings</title>
 </head>
 
 <body style="padding-left:50px" , "padding-top:15px">
@@ -14,6 +14,7 @@
         <div style = "padding-bottom:10px"><b>Select Output:</b>
             <input type="radio" class="options" name="output" checked /><label>Options</label>
             <input type="radio" class="parameters" name="output" /><label>Parameters</label>
+			<input type="radio" class="array" name="output" /><label>Array</label>
         </div>
         <div  style = "padding-bottom:10px"><b>Select Input format:</b>
             <div><input type="radio" class="inputTypeValues" name="inputType" checked /><label>List of values separated
@@ -24,6 +25,8 @@
             <div><input type="radio" class="inputTypeNames" name="inputType" />List of values and names:
                 <input type="radio" class="valueFirst" name="pairs" checked /><label>Value,Name</label>
                 <input type="radio" class="nameFirst" name="pairs" /><label>Name,Value</label>
+            </div>
+            <div><input type="radio" class="inputTypeNamesAndTypes" name="inputType" />List of 'name,type' separated by new line (for Parameters):
             </div>
         </div>
 

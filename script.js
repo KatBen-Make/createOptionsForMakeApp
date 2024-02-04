@@ -1,5 +1,9 @@
-const outputType = document.querySelector('.options'); // only 2 radio buttons, one of them is always 'checked'
-const inputTypeValues = document.querySelector('.inputTypeValues'); // only 2 radio buttons, one of them is always 'checked'
+const outputTypeOptions = document.querySelector('.options'); 
+const outputTypeParameters = document.querySelector('.parameters'); 
+const outputTypeArray = document.querySelector('.array'); 
+const inputTypeValues = document.querySelector('.inputTypeValues'); 
+const inputTypeNames = document.querySelector('.inputTypeNames'); 
+const inputTypeNamesAndTypes = document.querySelector('.inputTypeNamesAndTypes'); 
 const separatorComma = document.querySelector('.separatorComma'); // only 2 radio buttons, one of them is always 'checked'
 const valueFirst = document.querySelector('.valueFirst') // only 2 radio buttons, one of them is always 'checked'
 const inputOptions = document.querySelector('.inputOptions');
@@ -21,7 +25,7 @@ function nameToLabel(str) {
 	}).join(' ');
 };
 
-// from a list of values create array with {value, label} objects
+// from a list of values create array with {value, label} objects (options for Select dropdown list)
 function parseOptionsFromValues(input, separator) {
 	const separatedBy = separator.checked ? ',' : '\n'
 	const output = input.split(separatedBy)
@@ -44,7 +48,7 @@ function parseOptionsFromValuesAndNames(input, order) {
 	return JSON.stringify(output, null, 2);
 };
 
-// from a list of values create array of patrameter objects
+// from a list of values create array of parameter objects
 function parseParametersFromValues(input, separator) {
 	const separatedBy = separator.checked ? ',' : '\n'
 	const output = input.split(separatedBy)
@@ -69,17 +73,56 @@ function parseParametersFromValuesAndNames(input, order) {
 	return JSON.stringify(output, null, 2);
 };
 
+// Custom typeMap
+const typeMap = {
+        "String": "text",
+        "Datetime": "date",
+		"Date":"string",
+		"Int":"number",
+		"Decimal":"number",
+		"Short":"number",
+		"Byte":"number",
+		"string": "text",
+        "datetime": "date",
+		"date":"string",
+		"int":"number",
+		"decimal":"number",
+		"short":"number",
+		"byte":"number"
+    };
+
+// from a list of name,type create array with {name, label, type} objects for mappable parameters/interface
+function parseParametersFromValuesAndTypes(input, order) {
+	const output = input.split('\n')
+		.map(element => ({
+			"name": element.split(',')[0],
+			"label": nameToLabel(element.split(',')[0]),
+			"type": typeMap[element.split(',')[1]] || element.split(',')[1],
+		}));
+	return JSON.stringify(output, null, 2);
+};
+
+// from a list of value,name or name,value create array with {value, label} objects
+function parseArrayFromValues(input, separator) {
+	const separatedBy = separator.checked ? ',' : '\n'
+	const output = input.split(separatedBy)
+	return JSON.stringify(output)
+};
+
 // calls the function and displays the results after 'submit' button is clicked
 btnSubmit.addEventListener('click', function (e) {
 	e.preventDefault();
 	if (!inputOptions.value) alert('Insert values');
-	if (outputType.checked) {
+	if (outputTypeOptions.checked) {
 		if (inputTypeValues.checked) resultContent.textContent = parseOptionsFromValues(inputOptions.value, separatorComma);
 		if (!inputTypeValues.checked) resultContent.textContent = parseOptionsFromValuesAndNames(inputOptions.value, valueFirst);
-	}
-	if (!outputType.checked) {
-		console.log(outputType)
+	};
+	if (outputTypeParameters.checked) {
 		if (inputTypeValues.checked) resultContent.textContent = parseParametersFromValues(inputOptions.value, separatorComma);
-		if (!inputTypeValues.checked) resultContent.textContent = parseParametersFromValuesAndNames(inputOptions.value, valueFirst);
+		if (inputTypeNames.checked) resultContent.textContent = parseParametersFromValuesAndNames(inputOptions.value, valueFirst);
+		if (inputTypeNamesAndTypes.checked) resultContent.textContent = parseParametersFromValuesAndTypes(inputOptions.value, valueFirst);
+	};
+	if (outputTypeArray.checked) {
+		if (inputTypeValues.checked) resultContent.textContent = parseArrayFromValues(inputOptions.value, separatorComma);
 	}
 });
